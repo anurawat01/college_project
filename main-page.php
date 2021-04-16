@@ -1,7 +1,6 @@
 <?php
 include "student-data.php"; 
 session_start();
-
 ?>
 
 <!doctype html>
@@ -14,7 +13,7 @@ session_start();
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
-    <title>Hello, world!</title>
+    <title>Marks | Dashboard</title>
   </head>
   <body>
     <!-- Modal -->
@@ -91,7 +90,27 @@ session_start();
     <nav class="navbar bg-info">
       <div class="container">
           <span class="navbar-text m-auto text-light">Hello, <b><?php echo $_SESSION["username"];  ?></b></span>
-          <a href="logout.php" ><button class="btn primary-danger">Logout</button></a>
+          <!-- Delete Model -->
+          <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to logout?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="logout.php"><button type="button" class="btn btn-danger">Logout</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn primary-danger" data-toggle="modal" data-target="#exampleModal1">Logout</button>
       </div>
     </nav>
 
@@ -254,7 +273,7 @@ session_start();
       
         <table class="table table-striped table-bordered text-center table-sm">
           <tr>
-            <td width="327" class="bg-dark text-white" ><input class="form-control"  value = "Marks more than 50% score" readonly></td>
+            <td width="327" class="bg-info"><input class="form-control"  value = "Marks more than 50% score" readonly></td>
             <td><input class="form-control" value = "2" ></td>
             <td><input class="form-control" value = "5" ></td>
             <td><input class="form-control" value = "4" ></td>
@@ -263,7 +282,7 @@ session_start();
             <td><input class="form-control" value = "5" ></td>
           </tr>
           <tr>
-            <td class="bg-dark text-white"  ><input class="form-control" value = "Students Attempted" readonly></td>
+            <td class="bg-info"  ><input class="form-control" value = "Students Attempted" readonly></td>
             <td><input class="form-control" value = "2" ></td>
             <td><input class="form-control" value = "5" ></td>
             <td><input class="form-control" value = "4" ></td>
@@ -272,7 +291,7 @@ session_start();
             <td><input class="form-control" value = "5" ></td>
           </tr>
           <tr>
-            <td class="bg-dark text-white"  ><input class="form-control" value = "Percentage" readonly></td>
+            <td class="bg-info"  ><input class="form-control" value = "Percentage" readonly></td>
             <td><input class="form-control" value = "2" ></td>
             <td><input class="form-control" value = "5" ></td>
             <td><input class="form-control" value = "4" ></td>
@@ -281,7 +300,7 @@ session_start();
             <td><input class="form-control" value = "5" ></td>
           </tr>
           <tr>
-            <td class="bg-dark text-white"  ><input class="form-control" value = "Internal Assesment" readonly></td>
+            <td class="bg-info"  ><input class="form-control" value = "Internal Assesment" readonly></td>
             <td><input class="form-control" value = "2" ></td>
             <td><input class="form-control" value = "5" ></td>
             <td><input class="form-control" value = "4" ></td>

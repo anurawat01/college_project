@@ -6,12 +6,6 @@ if(!isset($_SESSION["username"]))
   header("Location: http://localhost/college_project/login.php");
 }
 ?>
-
-
-
-
-
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -22,14 +16,33 @@ if(!isset($_SESSION["username"]))
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
-    <title>Dashboard</title>
+    <title>Subject | Dashboard</title>
   </head>
   <body>
   <!-- Navbar -->
     <nav class="navbar bg-info">
       <div class="container">
           <span class="navbar-text m-auto text-light">Hello, <b> <?php echo $_SESSION["username"];  ?></b></span>
-          <a href="logout.php"><button class="btn primary-danger">Logout</button></a>
+          <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to logout?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="logout.php"><button type="button" class="btn btn-danger">Logout</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn primary-danger" data-toggle="modal" data-target="#exampleModal1" >Logout</button>
       </div>
     </nav>
     <div class="container border pb-5 mt-5 mb-5" >
@@ -57,13 +70,8 @@ if(!isset($_SESSION["username"]))
       </form>
     </div>
 
-
-
-
-
   <!-- table -->
   <div class="container" >
-
     <?php
     include "db_conn.php";
     $user = $_SESSION["username"];
