@@ -33,6 +33,7 @@ session_start();
               </div>
               <!-- DYNAMIC CO GENERATION -->
               <div class="form-group">
+              
                   <div class="input-group">
                     <input type="text" class="form-control" id="co_count" placeholder="CO" required> 
                     <div class="input-group-append">
@@ -124,11 +125,34 @@ session_start();
         $id = $row['user_id'];
     }
     $sub_id = $_GET['id'];
+
+    //validation so that other id cannot be accessed
+    $check = "SELECT * FROM sub_details where user_id = '$id'";
+    $result2 = mysqli_query($conn,$check) or die("Data Fetch Unsuccessfull");
+    $flag = 0;
+    while($row = mysqli_fetch_assoc($result2))
+    {
+      if($sub_id == $row['id'])
+      {
+        $flag = 1;
+      }
+    }
+    if($flag == 0)
+    {
+      echo '<div class="alert alert-danger text-center" role="alert">
+                Wrong Subject | Subject Doesnt exist !
+             </div>';
+      die();
+      header("Location: http://localhost/college_project/error.php");
+    }
+    
+    //subject fetch if exist then only
     $data = "SELECT * FROM sub_details where user_id = '$id' AND id = '$sub_id'";
     $result1 = mysqli_query($conn,$data) or die("Data Fetch Unsuccessfull");
     if(mysqli_num_rows($result1) > 0)
     {
-      $row = mysqli_fetch_assoc($result1)
+      $row = mysqli_fetch_assoc($result1);
+      
     ?>
     <div class="breadcrumb">
       <div class="col input-group">
@@ -197,9 +221,21 @@ session_start();
             <th colspan="6" >
             CT:
             <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-              <option selected value = "1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
+            <?php
+            $ct_details = "SELECT * FROM class_test INNER JOIN sub_details ON class_test.sub_id = sub_details.id WHERE sub_id = '$sub_id'";
+
+            $ct_result = mysqli_query($conn,$ct_details) or die("Class Test Data Fetch Unsuccessfull");
+
+            if(mysqli_num_rows($ct_result) > 0)
+            {
+              while($ct_data = mysqli_fetch_assoc($ct_result))
+              {
+            ?>
+              <option><?php echo $ct_data['ct_num']; ?></option>
+            <?php
+              }
+            }
+            ?>
             </select>
             </th>
           </tr>
@@ -236,7 +272,7 @@ session_start();
       $data = "SELECT * FROM stud_data";
       $result = mysqli_query($conn,$data) or die("Data Fetch Unsuccessfull");
       if(mysqli_num_rows($result) > 0)
-      {
+        {
       ?>
       <table class="table table-bordered text-center table-sm">
       <thead class="bg-dark text-white">
@@ -249,7 +285,7 @@ session_start();
 
       <tbody>
       <?php
-        while($row = mysqli_fetch_assoc($result))
+      while($row = mysqli_fetch_assoc($result))
         {
       ?>
       <tr>
@@ -270,8 +306,26 @@ session_start();
       
     </div>
     </table>
-      
-        <table class="table table-striped table-bordered text-center table-sm">
+        <div class="breadcrumb">
+          <div class="col text-center">
+              <button type ="button" class="btn btn-dark form-control">
+              UPDATE
+              </button>
+          </div>
+          <div class="col text-center">
+              <button type="button" class="btn btn-dark form-control">
+              DELETE
+              </button>
+          </div>
+          <div class="col text-center">
+              <button onlick="calculate()" type="button" class="btn btn-dark form-control">
+              FINAL SUBMIT
+              </button>
+          </div>
+        </div>
+        
+        
+        <table class="table table-striped table-bordered text-center table-sm mt-3">
           <tr>
             <td width="327" class="bg-info"><input class="form-control"  value = "Marks more than 50% score" readonly></td>
             <td><input class="form-control" value = "2" ></td>

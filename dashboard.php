@@ -109,7 +109,8 @@ if(!isset($_SESSION["username"]))
         <td><?php echo $row['sub_code']; ?></td>
         <td><?php echo $row['branch']; ?></td>
         <td><?php echo $row['semester']; ?></td>
-        <td><a href="main-page.php?id=<?php echo $row['id']; ?>"><button class="btn btn-success form-control"><i class="bi bi-pencil-square"></i></button></a></td>
+        <td><a href="main-page.php?id=<?php echo $row['id'];?>"><button class="btn btn-success form-control"><i class="bi bi-pencil-square"></i></button></a></td>
+
         <!-- DELETE MODEL -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
