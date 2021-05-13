@@ -9,6 +9,7 @@ if(!isset($_SESSION["username"]))
 <!doctype html>
 <html lang="en">
   <head>
+    
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -49,7 +50,7 @@ if(!isset($_SESSION["username"]))
       <div class="breadcrumb">
         <h4 class="m-auto" >New Subject: </h4>
       </div>
-      <form  method="POST" action="dashboard.php">
+      <form  method="POST" id="sub_form">
         <div class="row">
           <div class="col">
             <input type="text" class="form-control" placeholder="Subject" name="subject" required>
@@ -64,7 +65,7 @@ if(!isset($_SESSION["username"]))
             <input type="text" class="form-control" placeholder="Branch" name="branch" required>
             </div>
             <div class="col">
-            <button class="btn btn-primary form-control" name="submit" >ADD NEW</button>
+            <button class="btn btn-primary form-control" id="add_new" name="submit" >ADD NEW</button>
           </div>
         </div>
       </form>
@@ -111,6 +112,7 @@ if(!isset($_SESSION["username"]))
         <td><?php echo $row['semester']; ?></td>
         <td><a href="main-page.php?id=<?php echo $row['id'];?>"><button class="btn btn-success form-control"><i class="bi bi-pencil-square"></i></button></a></td>
 
+        
         <!-- DELETE MODEL -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -144,5 +146,40 @@ if(!isset($_SESSION["username"]))
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
+<script>
+$(document).ready(function()
+{   
+    $("#add_new").click(function(e)
+    {        
+        e.preventDefault();
+        $.ajax({
+            url:"subject-detail.php",
+            type:"POST",
+            data: $('#sub_form').serialize(),
+            success: function(data)
+            {
+                const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+
+              Toast.fire({
+                icon: 'success',
+                title: 'Subject Added successfully'
+              })
+            }
+        });
+    });
+}
+</script>
+
+
 </html>
 

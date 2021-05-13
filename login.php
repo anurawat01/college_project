@@ -10,6 +10,7 @@ if(isset($_POST['submit'])){
         {
             session_start();
             $_SESSION["username"] = $row['username'];
+            $_SESSION["user_id"] = $row["user_id"];
         }
         header("Location: http://localhost/college_project/dashboard.php");
     }
